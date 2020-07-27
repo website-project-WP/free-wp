@@ -107,6 +107,7 @@ $version = array(
 		'icofont' => array(
 			'css' => $cdn_exvendor.'icofont/icofont.min.css'
 		),
+		
 		'isotope-layout' => array(
 			'js' => $cdn_exvendor.'isotope-layout/isotope.pkgd.min.js'
 		),
