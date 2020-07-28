@@ -65,52 +65,46 @@ $others = json_decode($JE_translate_others, true);
 $debug = json_decode($JE_translate_debug, true);
 
 #frontend
-if(isset($_GET['html-verify'])){
-	if($_GET['html-verify'] == 'dailymotion'){
-		include_once('themes/seo/html-verify/dailymotion.php');	
-	} else if($_GET['html-verify'] == 'google'){
-		include_once('themes/seo/html-verify/google.php');	
-	} else if($_GET['html-verify'] == 'pinterest'){
-		include_once('themes/seo/html-verify/pinterest.php');	
-	} else if($_GET['html-verify'] == 'yandex'){
-		include_once('themes/seo/html-verify/yandex.php');	
+
+//header('Content-type: application/xml; charset=utf-8');
+
+if(isset($_GET['index'])){
+	if($_GET['index'] == 'badge'){
+		header('Content-type: application/xml; charset=utf-8');
+		include_once('themes/seo/xml/badge.php');		
+	} else if($_GET['index'] == 'rss'){
+		header('Content-type: application/xml; charset=utf-8');
+		include_once('themes/seo/xml/rss.php');
+	} else if($_GET['index'] == 'BingSiteAuth'){
+		header('Content-type: application/xml; charset=utf-8');
+		include_once('themes/seo/xml/BingSiteAuth.php');
 	} else {
 		header('Location: '.$protocols.'://'.$domainTLD);
-		
+		//exit();
+		//echo '';
 	}
-} else if(isset($_GET['json'])){
-	if($_GET['json'] == 'manifest'){
-		header('Content-type: application/json; charset=utf-8');
-		include_once('themes/seo/json/manifest.php');	
-	} else if($_GET['json'] == 'ld'){
-		header('Content-type: ld+json; charset=utf-8');
-		include_once('themes/seo/json/json-ld.php');	
-	} else if($_GET['json'] == 'microsoft-identity-association'){
-		header('Content-type: application/json; charset=utf-8');
-		include_once('themes/seo/json/microsoft-identity-association.php');	
+} else if(isset($_GET['sitemap'])){
+	if($_GET['sitemap'] == 'default'){
+		header('Content-type: application/xml; charset=utf-8');
+		include_once('themes/seo/xml/translate/default.php');	
+	} else if($_GET['sitemap'] == 'index'){
+		header('Content-type: application/xml; charset=utf-8');
+		include_once('themes/seo/xml/sitemap.php');	
+	} else if($_GET['sitemap'] == 'fr'){
+		header('Content-type: application/xml; charset=utf-8');
+		include_once('themes/seo/xml/translate/fr.php');	
+	} else if($_GET['sitemap'] == 'en'){
+		header('Content-type: application/xml; charset=utf-8');
+		include_once('themes/seo/xml/translate/en.php');	
 	} else {
 		header('Location: '.$protocols.'://'.$domainTLD);
-		
-	}
-} else if(isset($_GET['txt'])){
-	if($_GET['txt'] == 'robots'){
-		header('Content-type: text/plain; charset=utf-8');
-		include_once('themes/seo/txt/robots.php');		
-	} else if($_GET['txt'] == 'ads'){
-		header('Content-type: text/plain; charset=utf-8');
-		include_once('themes/seo/txt/ads.php');		
-	} else if($_GET['txt'] == 'humans'){
-		header('Content-type: text/plain; charset=utf-8');
-		include_once('themes/seo/txt/humans.php');		
-	} else if($_GET['txt'] == 'brave-rewards-verification'){
-		header('Content-type: text/plain; charset=utf-8');
-		include_once('themes/seo/txt/brave-rewards-verification.php');	
-	} else {
-		header('Location: '.$protocols.'://'.$domainTLD);
-		
+		//exit();
+		//echo '';
 	}
 } else {
-	header('Location: '.$protocols.'://'.$domainTLD);
+		header('Location: '.$protocols.'://'.$domainTLD);
+		//exit();
+		//echo '';
 	
 }
 ?>
