@@ -6,16 +6,17 @@ $partner = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'partner.html',
-			'fr' => 'partenaire.html',
-			'en' => 'partner.html'
+			'default' => 'partner',
+			'fr' => 'partenaire',
+			'en' => 'partner'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'themes/bg-alexonbstudio.png'  /*directory images from <exemple.tld>/assets */
+			'images' => 'themes/bg-alexonbstudio.png',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA'  /*directory images from <exemple.tld>/assets */
 		)
 	)
 );

@@ -6,9 +6,9 @@ $email = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'contact.html',
-			'fr' => 'contactez.html',
-			'en' => 'contact.html'
+			'default' => 'contact',
+			'fr' => 'contactez',
+			'en' => 'contact'
 		),
 		'content' => array(
 			'mail' => array(
@@ -41,7 +41,8 @@ $email = array(
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'themes/bg-alexonbstudio.png'  /*directory images from <exemple.tld>/assets */
+			'images' => 'themes/bg-alexonbstudio.png',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA'  /*directory images from <exemple.tld>/assets */
 		)
 	)
 );

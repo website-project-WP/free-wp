@@ -94,7 +94,7 @@
 #
 # https://httpd.apache.org/docs/current/mod/core.html#errordocument
 
- ErrorDocument 404 /error.html
+ ErrorDocument 404 /error
 
 # ----------------------------------------------------------------------
 # | Error prevention                                                   |
@@ -1244,7 +1244,7 @@ RewriteRule ^fr/accueil.html$ general.php?lang=fr&pages=index [L]
 ####################################################################################################
 
 	########## debug - french ##########
-	RewriteRule ^fr/déboguer\.html$ debug.php?lang=fr&pages=debug [L]
+	RewriteRule ^fr/déboguer$ debug.php?lang=fr&pages=debug [L]
 	RewriteRule ^fr/api/sites\.json$ debug.php?lang=fr&pages=debug&json=sites [L]
 	RewriteRule ^fr/api/social\.json$ debug.php?lang=fr&pages=debug&json=social [L]
 	RewriteRule ^fr/api/private\.json$ debug.php?lang=fr&pages=debug&json=private [L]
@@ -1253,44 +1253,45 @@ RewriteRule ^fr/accueil.html$ general.php?lang=fr&pages=index [L]
 	RewriteRule ^fr/api/partner\.json$ debug.php?lang=fr&pages=debug&json=partner [L]
 	RewriteRule ^fr/api/sponsor\.json$ debug.php?lang=fr&pages=debug&json=sponsor [L]
 	RewriteRule ^fr/api/credits\.json$ debug.php?lang=fr&pages=debug&json=credits [L]
-########## LAW - French ########## 
-RewriteRule ^fr/règles\.html$ law.php?lang=fr&pages=law [L]
-RewriteRule ^fr/conditions-générales-utilisation\.html$ law.php?lang=fr&pages=law&full=cgu [L]
-RewriteRule ^fr/conditions-générales-de-vente\.html$ law.php?lang=fr&pages=law&full=cgv [L]
-RewriteRule ^fr/dmca\.html$ law.php?lang=fr&pages=law&full=dmca [L]
-RewriteRule ^fr/mentions-légales\.html$ law.php?lang=fr&pages=law&full=legal [L]
-RewriteRule ^fr/politique-de-confidentialité\.html$ law.php?lang=fr&pages=law&full=policy-privacy [L]
-RewriteRule ^fr/rgpd\.html$ law.php?lang=fr&pages=law&full=rgpd [L]
+	########## LAW - French ########## 
+	RewriteRule ^fr/règles$ law.php?lang=fr&pages=law [L]
+	RewriteRule ^fr/conditions-générales-utilisation$ law.php?lang=fr&pages=law&full=cgu [L]
+	RewriteRule ^fr/conditions-générales-de-vente$ law.php?lang=fr&pages=law&full=cgv [L]
+	RewriteRule ^fr/dmca$ law.php?lang=fr&pages=law&full=dmca [L]
+	RewriteRule ^fr/mentions-légales$ law.php?lang=fr&pages=law&full=legal [L]
+	RewriteRule ^fr/politique-de-confidentialité$ law.php?lang=fr&pages=law&full=policy-privacy [L]
+	RewriteRule ^fr/rgpd$ law.php?lang=fr&pages=law&full=rgpd [L]
+	RewriteRule ^fr/cookies$ law.php?lang=fr&pages=law&full=cookies [L]
 
 
 ########## SPONSOR - French ##########
-RewriteRule ^fr/sponsorisé\.html$ sponsor.php?lang=fr&pages=index [L]
+RewriteRule ^fr/sponsorisé$ sponsor.php?lang=fr&pages=index [L]
 
 
 
 
 ########## PARTNER - French ##########
-RewriteRule ^fr/partenaire\.html$ partner.php?lang=fr&pages=index [L]
+RewriteRule ^fr/partenaire$ partner.php?lang=fr&pages=index [L]
 
 
 
 
 
 ########## CONTACT - French ##########
-RewriteRule ^fr/contactez\.html$ email.php?lang=fr&pages=index [L]
+RewriteRule ^fr/contactez$ email.php?lang=fr&pages=index [L]
 
 
 
 ########## SITEMAP - French ##########
-RewriteRule ^fr/plan-du-site\.html$ sitemap.php?lang=fr&pages=index [L]
+RewriteRule ^fr/plan-du-site$ sitemap.php?lang=fr&pages=index [L]
 
 
 
 
 
 ########## BLOCK - French ##########
-RewriteRule ^fr/contact/success\.html$ block.php?lang=fr&pages=success [L]
-RewriteRule ^fr/erreur\.html$ block.php?lang=fr&pages=error [L]
+RewriteRule ^fr/contact/success$ block.php?lang=fr&pages=success [L]
+RewriteRule ^fr/erreur$ block.php?lang=fr&pages=error [L]
 
 
 ####################################################################################################
@@ -1302,7 +1303,7 @@ RewriteRule ^fr/erreur\.html$ block.php?lang=fr&pages=error [L]
 RewriteRule ^en/home.html$ general.php?lang=en&pages=index [L]
 
 	########## debug - English ##########
-	RewriteRule ^en/debug\.html$ debug.php?lang=en&pages=debug [L]
+	RewriteRule ^en/debug$ debug.php?lang=en&pages=debug [L]
 	RewriteRule ^en/api/sites\.json$ debug.php?lang=en&pages=debug&json=sites [L]
 	RewriteRule ^en/api/social\.json$ debug.php?lang=en&pages=debug&json=social [L]
 	RewriteRule ^en/api/private\.json$ debug.php?lang=en&pages=debug&json=private [L]
@@ -1312,32 +1313,33 @@ RewriteRule ^en/home.html$ general.php?lang=en&pages=index [L]
 	RewriteRule ^en/api/sponsor\.json$ debug.php?lang=en&pages=debug&json=sponsor [L]
 	RewriteRule ^en/api/credits\.json$ debug.php?lang=en&pages=debug&json=credits [L]
 
-########## LAW - English ########## 
-RewriteRule ^en/rules\.html$ law.php?lang=en&pages=law [L]
-RewriteRule ^en/terms-and-conditions\.html$ law.php?lang=en&pages=law&full=cgu [L]
-RewriteRule ^en/terms-and-conditions-of-sale\.html$ law.php?lang=en&pages=law&full=cgv [L]
-RewriteRule ^en/dmca\.html$ law.php?lang=en&pages=law&full=dmca [L]
-RewriteRule ^en/legal\.html$ law.php?lang=en&pages=law&full=legal [L]
-RewriteRule ^en/privacy-policy\.html$ law.php?lang=en&pages=law&full=policy-privacy [L]
-RewriteRule ^en/grpd\.html$ law.php?lang=en&pages=law&full=rgpd [L]
+	########## LAW - English ########## 
+	RewriteRule ^en/rules$ law.php?lang=en&pages=law [L]
+	RewriteRule ^en/terms-and-conditions$ law.php?lang=en&pages=law&full=cgu [L]
+	RewriteRule ^en/terms-and-conditions-of-sale$ law.php?lang=en&pages=law&full=cgv [L]
+	RewriteRule ^en/dmca$ law.php?lang=en&pages=law&full=dmca [L]
+	RewriteRule ^en/legal$ law.php?lang=en&pages=law&full=legal [L]
+	RewriteRule ^en/privacy-policy$ law.php?lang=en&pages=law&full=policy-privacy [L]
+	RewriteRule ^en/grpd$ law.php?lang=en&pages=law&full=rgpd [L]
+	RewriteRule ^en/cookies-policy$ law.php?lang=en&pages=law&full=cookies [L]
 
 
 ########## SPONSOR - English ##########
-RewriteRule ^en/sponsor\.html$ sponsor.php?lang=en&pages=index [L]
+RewriteRule ^en/sponsor$ sponsor.php?lang=en&pages=index [L]
 
 
 
 
 
 ########## PARTNER - English ##########
-RewriteRule ^en/partner\.html$ partner.php?lang=en&pages=index [L]
+RewriteRule ^en/partner$ partner.php?lang=en&pages=index [L]
 
 
 
 
 
 ########## CONTACT - English ##########
-RewriteRule ^en/contact\.html$ email.php?lang=en&pages=index [L]
+RewriteRule ^en/contact$ email.php?lang=en&pages=index [L]
 
 
 
@@ -1345,14 +1347,14 @@ RewriteRule ^en/contact\.html$ email.php?lang=en&pages=index [L]
 
 
 ########## SITEMAP - English ##########
-RewriteRule ^en/sitemap\.html$ sitemap.php?lang=en&pages=index [L]
+RewriteRule ^en/sitemap$ sitemap.php?lang=en&pages=index [L]
 
 
 
 
 ########## BLOCK - English ##########
-RewriteRule ^en/contact/success\.html$ block.php?lang=en&pages=success [L]
-RewriteRule ^en/error\.html$ block.php?lang=en&pages=error [L]
+RewriteRule ^en/contact/success$ block.php?lang=en&pages=success [L]
+RewriteRule ^en/error$ block.php?lang=en&pages=error [L]
 
 
 
@@ -1369,12 +1371,12 @@ RewriteRule ^en/error\.html$ block.php?lang=en&pages=error [L]
 	RewriteRule ^badge\.xml$ seo-others.php?index=badge [L]
 	RewriteRule ^browserconfig\.xml$ seo-others.php?index=badge [L]
 	RewriteRule ^BingSiteAuth\.xml$ seo-others.php?index=BingSiteAuth [L]
-	RewriteRule ^sitemap\.xml$ seo-others.php?index=sitemap [L]
+	#RewriteRule ^sitemap\.xml$ seo-others.php?index=sitemap [L]
 	##SITEMAP##
 	RewriteRule ^sitemap\.xml$ seo-others.php?sitemap=index [L]
-	RewriteRule ^sitemap-index\.xml$ seo-others.php?sitemap=default [L]
-	RewriteRule ^sitemap-en\.xml$ seo-others.php?sitemap=en [L]
-	RewriteRule ^sitemap-fr\.xml$ seo-others.php?sitemap=fr [L]
+	#RewriteRule ^sitemap-index\.xml$ seo-others.php?sitemap=default [L]
+	#RewriteRule ^sitemap-en\.xml$ seo-others.php?sitemap=en [L]
+	#RewriteRule ^sitemap-fr\.xml$ seo-others.php?sitemap=fr [L]
 
 	###### JSON ###### 
 	RewriteRule ^manifest\.json$ seo.php?json=manifest [L]
@@ -1403,8 +1405,8 @@ RewriteRule ^en/error\.html$ block.php?lang=en&pages=error [L]
 <IfModule mod_rewrite.c>
 RewriteEngine on
 #E-Mail
-RewriteRule ^contact/success\.html$ index.php?pages=success [L]
-RewriteRule ^error\.html$ index.php?pages=error [L]
+RewriteRule ^contact/success$ index.php?pages=success [L]
+RewriteRule ^error$ index.php?pages=error [L]
 
 
 </IfModule>
@@ -1414,7 +1416,7 @@ RewriteRule ^error\.html$ index.php?pages=error [L]
 <IfModule mod_rewrite.c>
 RewriteEngine on
 #sponsor
-RewriteRule ^sponsor\.html$ index.php?pages=sponsor [L]
+RewriteRule ^sponsor$ index.php?pages=sponsor [L]
 
 </IfModule>
 
@@ -1423,7 +1425,7 @@ RewriteRule ^sponsor\.html$ index.php?pages=sponsor [L]
 <IfModule mod_rewrite.c>
 RewriteEngine on
 #Partner
-RewriteRule ^partner\.html$ index.php?pages=partner [L]
+RewriteRule ^partner$ index.php?pages=partner [L]
 
 </IfModule>
 
@@ -1433,7 +1435,7 @@ RewriteRule ^partner\.html$ index.php?pages=partner [L]
 <IfModule mod_rewrite.c>
 RewriteEngine on
 #E-Mail
-RewriteRule ^contact\.html$ index.php?pages=email [L]
+RewriteRule ^contact$ index.php?pages=email [L]
 
 
 </IfModule>
@@ -1445,25 +1447,34 @@ RewriteRule ^contact\.html$ index.php?pages=email [L]
 <IfModule mod_rewrite.c>
 RewriteEngine on
 #sponsor
-RewriteRule ^sitemap\.html$ index.php?pages=sitemap [L]
+RewriteRule ^sitemap$ index.php?pages=sitemap [L]
 
 </IfModule>
 
 
 
 
+<IfModule mod_rewrite.c>
+RewriteEngine on
+#security CSP 
+RewriteRule ^security/csp-violate$ email.php?security=csp [L]
+
+</IfModule>
+
+
 
 
 <IfModule mod_rewrite.c>
-RewriteEngine on
-#law
-RewriteRule ^rules\.html$ index.php?pages=law [L]
-RewriteRule ^cgu\.html$ index.php?pages=law&full=cgu [L]
-RewriteRule ^cgv\.html$ index.php?pages=law&full=cgv [L]
-RewriteRule ^dmca\.html$ index.php?pages=law&full=dmca [L]
-RewriteRule ^legal\.html$ index.php?pages=law&full=legal [L]
-RewriteRule ^policy-privacy\.html$ index.php?pages=law&full=policy-privacy [L]
-RewriteRule ^grpd\.html$ index.php?pages=law&full=rgpd [L]
+	RewriteEngine on
+	#law
+	RewriteRule ^rules$ index.php?pages=law [L]
+	RewriteRule ^cgu$ index.php?pages=law&full=cgu [L]
+	RewriteRule ^cgv$ index.php?pages=law&full=cgv [L]
+	RewriteRule ^dmca$ index.php?pages=law&full=dmca [L]
+	RewriteRule ^legal$ index.php?pages=law&full=legal [L]
+	RewriteRule ^policy-privacy$ index.php?pages=law&full=policy-privacy [L]
+	RewriteRule ^grpd$ index.php?pages=law&full=rgpd [L]
+	RewriteRule ^cookies$ index.php?pages=law&full=cookies [L]
 
 </IfModule>
 
@@ -1472,7 +1483,7 @@ RewriteRule ^grpd\.html$ index.php?pages=law&full=rgpd [L]
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 	
-	RewriteRule ^debug\.html$ index.php?pages=debug [L]
+	RewriteRule ^debug$ index.php?pages=debug [L]
 	RewriteRule ^api/sites\.json$ index.php?pages=debug&json=sites [L]
 	RewriteRule ^api/social\.json$ index.php?pages=debug&json=social [L]
 	RewriteRule ^api/private\.json$ index.php?pages=debug&json=private [L]
@@ -1483,7 +1494,7 @@ RewriteRule ^grpd\.html$ index.php?pages=law&full=rgpd [L]
 	RewriteRule ^api/credits\.json$ index.php?pages=debug&json=credits [L]
 	
 	########## debug - English ##########
-	RewriteRule ^en/debug\.html$ debug.php?lang=en&pages=debug [L]
+	RewriteRule ^en/debug$ debug.php?lang=en&pages=debug [L]
 	RewriteRule ^en/api/sites\.json$ debug.php?lang=en&pages=debug&json=sites [L]
 	RewriteRule ^en/api/social\.json$ debug.php?lang=en&pages=debug&json=social [L]
 	RewriteRule ^en/api/private\.json$ debug.php?lang=en&pages=debug&json=private [L]
@@ -1493,7 +1504,7 @@ RewriteRule ^grpd\.html$ index.php?pages=law&full=rgpd [L]
 	RewriteRule ^en/api/sponsor\.json$ debug.php?lang=en&pages=debug&json=sponsor [L]
 	
 	########## debug - French ##########
-	RewriteRule ^fr/déboguer\.html$ debug.php?lang=fr&pages=debug [L]
+	RewriteRule ^fr/déboguer$ debug.php?lang=fr&pages=debug [L]
 	RewriteRule ^fr/api/sites\.json$ debug.php?lang=fr&pages=debug&json=sites [L]
 	RewriteRule ^fr/api/social\.json$ debug.php?lang=fr&pages=debug&json=social [L]
 	RewriteRule ^fr/api/private\.json$ debug.php?lang=fr&pages=debug&json=private [L]
@@ -1503,3 +1514,21 @@ RewriteRule ^grpd\.html$ index.php?pages=law&full=rgpd [L]
 	RewriteRule ^fr/api/sponsor\.json$ debug.php?lang=fr&pages=debug&json=sponsor [L]
 	RewriteRule ^fr/api/credits\.json$ debug.php?lang=fr&pages=debug&json=credits [L]
 </IfModule>
+
+
+
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+#genrator sitemap
+RewriteRule ^automate/generator/sitemap-index$ generator.php?sitemaps=index [L]
+RewriteRule ^automate/generator/sitemap-fr$ generator.php?sitemaps=fr [L]
+RewriteRule ^automate/generator/sitemap-en$ generator.php?sitemaps=en [L]
+
+</IfModule>
+
+
+
+
+
+

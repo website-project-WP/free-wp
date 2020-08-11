@@ -6,16 +6,17 @@ $block = array(
 		'description' => 'Your message has been sent successfully',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'contact/success.html',
-			'fr' => 'contact/succès.html',
-			'en' => 'contact/success.html'
+			'default' => 'contact/success',
+			'fr' => 'contact/succès',
+			'en' => 'contact/success'
 		),
 		'content' => array(
 			'msg' => 'Your message has been sent successfully'
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'block/success.jpg'  /*directory images from <exemple.tld>/assets */
+			'images' => 'block/success.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA'  /*directory images from <exemple.tld>/assets */
 		)
 	),
 	'error' => array(
@@ -23,9 +24,9 @@ $block = array(
 		'description' => 'Sorry your message was not sent',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'error.html',
-			'fr' => 'erreur.html',
-			'en' => 'error.html'
+			'default' => 'error',
+			'fr' => 'erreur',
+			'en' => 'error'
 		),
 		'content' => array(
 			'line1' => 'An error occurred while running the query.',
@@ -38,7 +39,8 @@ $block = array(
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'block/error.jpg'  /*directory images from <exemple.tld>/assets */
+			'images' => 'block/error.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA'  /*directory images from <exemple.tld>/assets */
 		)
 	)
 );

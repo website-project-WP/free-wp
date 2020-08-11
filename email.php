@@ -2,7 +2,9 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-require 'libs/custom/compress.php'; 
+#require libs/custom/
+foreach (glob('libs/custom/*.php') as $GlobRequire) { include_once $GlobRequire; }
+
 #configuration
 foreach (glob('configuration/*.php') as $GlobConfig) { include_once $GlobConfig; }
 
@@ -76,6 +78,42 @@ use Joomla\Utilities\IpHelper;
 $hcaptcha_VResponse = file_get_contents('https://hcaptcha.com/siteverify?secret='.$seo['hcaptcha']['private-key'].'&response='.$_POST['h-captcha-response'].'&remoteip='.IpHelper::getIp());
 $hcaptcha_RData = json_decode($hcaptcha_VResponse);
 */
+/*
+Other method
+#LibPhoneNumber-for-php - check only
+require 'libs/Locale/src/Locale.php';
+require 'libs/libphonenumber-for-php/src/prefixmapper/PhonePrefixMap.php';
+require 'libs/libphonenumber-for-php/src/prefixmapper/MappingFileProvider.php';
+require 'libs/libphonenumber-for-php/src/prefixmapper/PrefixFileReader.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberFormat.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberToCarrierMapper.php';
+require 'libs/libphonenumber-for-php/src/geocoding/PhoneNumberOfflineGeocoder.php';
+require 'libs/libphonenumber-for-php/src/ValidationResult.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberType.php';
+require 'libs/libphonenumber-for-php/src/NumberFormat.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberDesc.php';
+require 'libs/libphonenumber-for-php/src/PhoneMetadata.php';
+require 'libs/libphonenumber-for-php/src/Matcher.php';
+require 'libs/libphonenumber-for-php/src/CountryCodeSource.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumber.php';
+require 'libs/libphonenumber-for-php/src/MatcherAPIInterface.php';
+require 'libs/libphonenumber-for-php/src/RegexBasedMatcher.php';
+require 'libs/libphonenumber-for-php/src/MetadataSourceInterface.php';
+require 'libs/libphonenumber-for-php/src/MultiFileMetadataSourceImpl.php';
+require 'libs/libphonenumber-for-php/src/MetadataLoaderInterface.php';
+require 'libs/libphonenumber-for-php/src/DefaultMetadataLoader.php';
+require 'libs/libphonenumber-for-php/src/CountryCodeToRegionCodeMap.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberUtil.php';
+use libphonenumber\PhoneNumberUtil;
+use libphonenumber\PhoneNumberToCarrierMapper;
+use libphonenumber\geocoding\PhoneNumberOfflineGeocoder;
+use libphonenumber\PhoneNumberFormat;
+
+
+$PhoneNumberUtil = PhoneNumberUtil::getInstance();
+$PhoneNumberCarrierMapper = PhoneNumberToCarrierMapper::getInstance();
+$PhoneNumberGeocoder = PhoneNumberOfflineGeocoder::getInstance();
+*/
 #frontend
 if(isset($_GET['lang'])){
 	if($_GET['lang'] == $DefineTranslateLang){
@@ -86,6 +124,7 @@ if(isset($_GET['lang'])){
 				$keyword = $email['index']['keyword'];
 				$urls = $email['index']['url']['default'];
 				$imgs = $email['index']['sitemap']['images'];
+				$vdos = $email['index']['sitemap']['video'];
 				//$pattern_out = '/^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/';
 
 				if(!empty($business['local']['name'])){
@@ -122,9 +161,9 @@ if(isset($_GET['lang'])){
 						//Never allow arbitrary input for the 'teams' address as it will turn your form inteams a spam gateway!
 						//Substitute appropriate addresses from your own domain, or simply use a single, fixed address
 						if (array_key_exists('teams', $_POST) && in_array($_POST['teams'], [$business['local']['mail']['contact'], $business['local']['mail']['support'], $business['local']['mail']['commercial'], $business['local']['mail']['sponsor'], $business['local']['mail']['partner'], $business['local']['mail']['business']], true)) {
-							$teams = $_POST['teams'].'@'.$sites['domain'];
+							$teams = $_POST['teams'].'@'.$domainTLD;
 						} else {
-							$teams = $business['local']['mail']['contact'].'@'.$sites['domain'];
+							$teams = $business['local']['mail']['contact'].'@'.$domainTLD;
 						}
 						//Make sure the address they provided is valid before trying teams use it
 						if (array_key_exists('email', $_POST) && $mail->validateAddress($_POST['email'])/* && preg_match($pattern_out, $_POST['phone'] */) {
@@ -135,13 +174,13 @@ if(isset($_GET['lang'])){
 							$err_email = true;
 						}
 						if (!$err_email) {
-							$mail->setFrom($business['local']['mail']['contact'].'@'.$sites['domain'], (empty($name_email) ? '<Anonymous>' : $name_email));
-							$mail->addAddress($teams, $sites['domain']);
+							$mail->setFrom($business['local']['mail']['contact'].'@'.$domainTLD, (empty($name_email) ? '<Anonymous>' : $name_email));
+							$mail->addAddress($teams, $domainTLD);
 							$mail->addReplyteams($email_email, $name_email);
 							
 							if ($mail->addReplyTo($email_email, $name_email)) {
 								$mail->isHTML(true);
-								$mail->Subject = $subject_email.' ('.$email['index']['title'].') - '.$sites['domain'].'.';
+								$mail->Subject = $subject_email.' ('.$email['index']['title'].') - '.$domainTLD.'.';
 								/*
 								#Solution 1
 								ob_start("ob_html_compress");
@@ -167,7 +206,7 @@ if(isset($_GET['lang'])){
 								$mail->msgHTML($body, dirname(__FILE__));
 								#$mail->msgHTML(file_get_contents('contents.html'), __DIR__);*/
 								# Solution 3
-								$mail->Body = '<h2>'.$email['index']['title'].': '.$sites['domain'].'</h2>
+								$mail->Body = '<h2>'.$email['index']['title'].': '.$domainTLD.'</h2>
 									<h4>'.$email['index']['default']['content']['default']['subject'].':</h4> '.$subject_email.'<br /><br />
 									<strong>'.$email['index']['content']['default']['email'].':</strong> '.$email_email.'<br /><br />
 									<strong>'.$email['index']['content']['default']['name'].':</strong> '.$name_email.'<br /><br />
@@ -176,12 +215,12 @@ if(isset($_GET['lang'])){
 									
 									
 								if (!$mail->send()) {
-									header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['error']['url']['default']);
+									header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['error']['url']['default']);
 								} else {
-									header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['success']['url']['default']);
+									header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['success']['url']['default']);
 								}
 							} else {
-								header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['error']['url']['default']);
+								header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['error']['url']['default']);
 							}
 						}
 					} 
@@ -191,10 +230,15 @@ if(isset($_GET['lang'])){
 						date_default_timezone_set($sites['default-timezone']);
 						
 						$mail->setFrom($_POST['email'], $_POST['name']);
-						$mail->addAddress($private['mail']['public'].'@'.$sites['domain'], $sites['domain']);
+						if(!empty($private['mail']['public'])){
+							$mail->addAddress($private['mail']['public'].'@'.$domainTLD, $domainTLD);
+						} else {
+							$mail->addAddress($private['mail']['private'].'@'.$private['mail']['@']['external'], $domainTLD);
+						}
+						
 						# $mail->msgHTML(); #preparing email template
 						if ($mail->addReplyTo($_POST['email'], $_POST['name'])) {
-							$mail->Subject = $email['index']['title'].' - '.$sites['domain'].'.';
+							$mail->Subject = $email['index']['title'].' - '.$domainTLD.'.';
 							$mail->isHTML(true);
 							/*
 							#Solution 1
@@ -222,7 +266,7 @@ if(isset($_GET['lang'])){
 							#$mail->msgHTML(file_get_contents('contents.html'), __DIR__);*/
 							#solution 3
 							$mail->Body = '
-							<h2>'.$email['index']['title'].': '.$sites['domain'].'</h2>
+							<h2>'.$email['index']['title'].': '.$domainTLD.'</h2>
 							<h4>'.$email['index']['content']['default']['subject'].':</h4> '.$_POST['subject'].'<br /><br />
 							<strong>'.$email['index']['content']['default']['email'].':</strong> '.$_POST['email'].'<br /><br />
 							<strong>'.$email['index']['content']['default']['name'].':</strong> '.$_POST['name'].'<br /><br />
@@ -230,14 +274,14 @@ if(isset($_GET['lang'])){
 							<strong>'.$email['index']['content']['default']['message'].':</strong> '.$_POST['message'];
 					
 							if (!$mail->send()) {
-							   header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['error']['url']['default']);
+							   header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['error']['url']['default']);
 							   exit();
 							} else {
-							   header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['success']['url']['default']);
+							   header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['success']['url']['default']);
 							   exit();
 							}
 						} else {
-							header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['error']['url']['default']);
+							header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['error']['url']['default']);
 							exit();
 
 						}
@@ -256,6 +300,48 @@ if(isset($_GET['lang'])){
 			header('Location: '.$protocols.'://'.$domainTLD);
 			exit();
 		}
+	} else {
+		header('Location: '.$protocols.'://'.$domainTLD);
+		exit();
+	}
+} else if(isset($_GET['security'])){
+	if($_GET['security'] == 'csp'){
+		if(!empty($business['local']['name'])){
+			$SecurityCSP_emailTo=$business['local']['mail']['contact'].'@'.$domainTLD;
+		} else {
+			$SecurityCSP_emailTo=$private['mail']['public'].'@'.$domainTLD;
+		}
+
+		http_response_code(204);
+
+		// Only run if proper input data received
+		if ($SecurityCSP_data=json_decode(file_get_contents('php://input'), true)){
+			if (!isset($SecurityCSP_data['csp-report'])){ return; }
+				
+			$SecurityCSP_data=$SecurityCSP_data['csp-report'];
+			ksort($SecurityCSP_data);
+			
+			if ($SecurityCSP_data['blocked-uri']==''){ return; }
+			
+			// Filter out junk reports
+			$blockedUris=array('127.0.0.1', 'blur://', 'mbinit://', 'ms-appx-web:', 'mx:', 'opera://', 'safari-extension:', 'self');
+			
+			foreach($blockedUris as $uri){
+				if (strpos($SecurityCSP_data['blocked-uri'], $uri)!==FALSE){
+					return;
+				}
+			}
+			
+			// Prettify the JSON-formatted data
+			$SecurityCSP_email=json_encode($SecurityCSP_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)."\r\n\r\n";
+
+			$SecurityCSP_email.=sprintf("%s (%s)\r\n", $_SERVER['REMOTE_ADDR'], gethostbyaddr($_SERVER['REMOTE_ADDR']));
+			$SecurityCSP_email.=sprintf("%s\r\n\r\n", $_SERVER['HTTP_USER_AGENT']);
+			
+			// Mail the CSP violation report
+			mail($ecurityCSP_emailTo, 'CSP Violation - '.$domainTLD, $SecurityCSP_email, 'Content-Type: text/plain;charset=utf-8');
+		}	
+
 	} else {
 		header('Location: '.$protocols.'://'.$domainTLD);
 		exit();

@@ -2,7 +2,9 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-require 'libs/custom/compress.php'; 
+#require libs/custom/
+foreach (glob('libs/custom/*.php') as $GlobRequire) { include_once $GlobRequire; }
+
 #configuration
 foreach (glob('configuration/*.php') as $GlobConfig) { include_once $GlobConfig; }
 
@@ -70,6 +72,7 @@ if(isset($_GET['lang'])){
 				$keyword = $block['success']['keyword'];
 				$urls = $block['success']['url']['default'];
 				$imgs = $block['success']['sitemap']['images'];
+				$vdos = $block['success']['sitemap']['video'];
 				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$block['success']['url']['fr']);
 				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$block['success']['url']['en']);
 				include('themes/'.$sites['template'].'/header.php');
@@ -81,6 +84,7 @@ if(isset($_GET['lang'])){
 				$keyword = $block['error']['keyword'];
 				$urls = $block['error']['url']['default'];
 				$imgs = $block['error']['sitemap']['images'];
+				$vdos = $block['error']['sitemap']['video'];
 				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$block['error']['url']['fr']);
 				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$block['error']['url']['en']);
 				include('themes/'.$sites['template'].'/header.php');

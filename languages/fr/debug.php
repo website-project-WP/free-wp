@@ -6,9 +6,9 @@ $debug = array(
 		'description' => 'Voici toutes les informations du debug en JSON que vous pouvez prendre de la data nécessaire sur n\'importe quel type de technologie',
 		'keyword' => 'déboguer, php, json, information, site internet, data, technologie, développeur, programmeur',
 		'url' => array(
-			'default' => 'debug.html',
-			'fr' => 'déboguer.html',
-			'en' => 'debug.html'
+			'default' => 'debug',
+			'fr' => 'déboguer',
+			'en' => 'debug'
 		),
 		'content' => array(
 			'table' => array(
@@ -63,7 +63,8 @@ $debug = array(
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'background/debug.jpg'  /*directory images from <exemple.tld>/assets */
+			'images' => 'background/debug.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA'  /*directory images from <exemple.tld>/assets */
 		)
 	)
 );

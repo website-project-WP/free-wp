@@ -2,6 +2,7 @@
 #business['local']['status']['name']
 $business = array(
 	'local' => array(
+		'born' => '', /*exemple Day/Month/Year number only indicate age */
 		'name' => 'business compagny',/*IF empty variable output not show public/not use*/
 		'siret' => '',
 		'tva' => '',
@@ -19,34 +20,26 @@ $business = array(
 		),
 		'mobile' => array(
 			'code' => '+33',
-			'normal' => '(0)',
-			'number' => '1234567891',
+			'normal' => '0',
+			'number' => '',
 		),
 		'phone' => array(
 			'code' => '+33',
-			'normal' => '(0)',
-			'number' => '1234567891',
+			'normal' => '0',
+			'number' => '',
 		),
 		'fax' => array(
 			'code' => '+33',
-			'normal' => '(0)',
-			'number' => '1234567891',
+			'normal' => '0',
+			'number' => '',
 		),
 		'mail' => array(
-			'contact' => 'con@email.tld',
-			'support' => 'supp@@email.tld',
-			'commercial' => 'comm@@email.tld',
-			'sponsor' => 'spon@email.tld',
-			'partner' => 'part@email.tld',
-			'business' => 'buz@email.tld',
-			'text' => array(
-				'contact' => 'con', 
-				'support' => 'supp',
-				'commercial' => 'comm',
-				'sponsor' => 'spon',
-				'partner' => 'part',
-				'business' => 'buz'
-			)
+			'contact' => 'con',
+			'support' => 'supp',
+			'commercial' => 'comm',
+			'sponsor' => 'spon',
+			'partner' => 'part',
+			'business' => 'buz'
 		),
 		'team' => array(
 		/*exemple*/

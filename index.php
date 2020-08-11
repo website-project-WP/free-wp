@@ -2,7 +2,9 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-require 'libs/custom/compress.php'; 
+#require libs/custom/
+foreach (glob('libs/custom/*.php') as $GlobRequire) { include_once $GlobRequire; }
+
 #configuration
 foreach (glob('configuration/*.php') as $GlobConfig) { include_once $GlobConfig; }
 
@@ -75,6 +77,40 @@ use Joomla\Utilities\IpHelper;
 $hcaptcha_VResponse = file_get_contents('https://hcaptcha.com/siteverify?secret='.$seo['hcaptcha']['private-key'].'&response='.$_POST['h-captcha-response'].'&remoteip='.IpHelper::getIp());
 $hcaptcha_RData = json_decode($hcaptcha_VResponse);
 */
+/* Take other method
+#LibPhoneNumber-for-php - check only
+require 'libs/Locale/src/Locale.php';
+require 'libs/libphonenumber-for-php/src/prefixmapper/PhonePrefixMap.php';
+require 'libs/libphonenumber-for-php/src/prefixmapper/MappingFileProvider.php';
+require 'libs/libphonenumber-for-php/src/prefixmapper/PrefixFileReader.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberFormat.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberToCarrierMapper.php';
+require 'libs/libphonenumber-for-php/src/geocoding/PhoneNumberOfflineGeocoder.php';
+require 'libs/libphonenumber-for-php/src/ValidationResult.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberType.php';
+require 'libs/libphonenumber-for-php/src/NumberFormat.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberDesc.php';
+require 'libs/libphonenumber-for-php/src/PhoneMetadata.php';
+require 'libs/libphonenumber-for-php/src/Matcher.php';
+require 'libs/libphonenumber-for-php/src/CountryCodeSource.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumber.php';
+require 'libs/libphonenumber-for-php/src/MatcherAPIInterface.php';
+require 'libs/libphonenumber-for-php/src/RegexBasedMatcher.php';
+require 'libs/libphonenumber-for-php/src/MetadataSourceInterface.php';
+require 'libs/libphonenumber-for-php/src/MultiFileMetadataSourceImpl.php';
+require 'libs/libphonenumber-for-php/src/MetadataLoaderInterface.php';
+require 'libs/libphonenumber-for-php/src/DefaultMetadataLoader.php';
+require 'libs/libphonenumber-for-php/src/CountryCodeToRegionCodeMap.php';
+require 'libs/libphonenumber-for-php/src/PhoneNumberUtil.php';
+use libphonenumber\PhoneNumberUtil;
+use libphonenumber\PhoneNumberToCarrierMapper;
+use libphonenumber\geocoding\PhoneNumberOfflineGeocoder;
+use libphonenumber\PhoneNumberFormat;
+
+$PhoneNumberUtil = PhoneNumberUtil::getInstance();
+$PhoneNumberCarrierMapper = PhoneNumberToCarrierMapper::getInstance();
+$PhoneNumberGeocoder = PhoneNumberOfflineGeocoder::getInstance();
+*/
 #frontend
 if(isset($_GET['pages'])){
 	if($_GET['pages'] == 'index'){
@@ -83,6 +119,7 @@ if(isset($_GET['pages'])){
 		$keyword = $general['index']['keyword'];
 		$urls = $general['index']['url']['default'];
 		$imgs = $general['index']['sitemap']['images'];
+		$vdos = $general['index']['sitemap']['video'];
 		define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$general['index']['url']['fr']);
 		define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$general['index']['url']['en']);
 		include('themes/'.$sites['template'].'/header.php');
@@ -119,6 +156,7 @@ if(isset($_GET['pages'])){
 			$keyword = $debug['index']['keyword'];
 			$urls = $debug['index']['url']['default'];
 			$imgs = $debug['index']['sitemap']['images'];
+			$vdos = $debug['index']['sitemap']['video'];
 			define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$debug['index']['url']['fr']);
 			define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$debug['index']['url']['en']);
 			include('themes/'.$sites['template'].'/header.php');
@@ -132,7 +170,7 @@ if(isset($_GET['pages'])){
 		$keyword = $email['index']['keyword'];
 		$urls = $email['index']['url']['default'];
 		$imgs = $email['index']['sitemap']['images'];
-		$imgs = $email['index']['sitemap']['images'];
+		$vdos = $email['index']['sitemap']['video'];
 		//$pattern_out = '/^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/';
 		if(!empty($business['local']['name'])){		
 		
@@ -168,9 +206,9 @@ if(isset($_GET['pages'])){
 				//Never allow arbitrary input for the 'teams' address as it will turn your form inteams a spam gateway!
 				//Substitute appropriate addresses from your own domain, or simply use a single, fixed address
 				if (array_key_exists('teams', $_POST) && in_array($_POST['teams'], [$business['local']['mail']['contact'], $business['local']['mail']['support'], $business['local']['mail']['commercial'], $business['local']['mail']['sponsor'], $business['local']['mail']['partner'], $business['local']['mail']['business']], true)) {
-					$teams = $_POST['teams'].'@'.$sites['domain'];
+					$teams = $_POST['teams'].'@'.$domainTLD;
 				} else {
-					$teams = $business['local']['mail']['contact'].'@'.$sites['domain'];
+					$teams = $business['local']['mail']['contact'].'@'.$domainTLD;
 				}
 				//Make sure the address they provided is valid before trying teams use it
 				if (array_key_exists('email', $_POST) && $mail->validateAddress($_POST['email'])/* && preg_match($pattern_out, $_POST['phone'] */) {
@@ -181,13 +219,13 @@ if(isset($_GET['pages'])){
 					$err_email = true;
 				}
 				if (!$err_email) {
-					$mail->setFrom($business['local']['mail']['contact'].'@'.$sites['domain'], (empty($name_email) ? '<Anonymous>' : $name_email));
-					$mail->addAddress($teams, $sites['domain']);
+					$mail->setFrom($business['local']['mail']['contact'].'@'.$domainTLD, (empty($name_email) ? '<Anonymous>' : $name_email));
+					$mail->addAddress($teams, $domainTLD);
 					$mail->addReplyteams($email_email, $name_email);
 					
 					if ($mail->addReplyTo($email_email, $name_email)) {
 						$mail->isHTML(true);
-						$mail->Subject = $subject_email.' ('.$email['index']['title'].') - '.$sites['domain'].'.';
+						$mail->Subject = $subject_email.' ('.$email['index']['title'].') - '.$domainTLD.'.';
 						/*
 						#Solution 1
 						ob_start("ob_html_compress");
@@ -213,7 +251,7 @@ if(isset($_GET['pages'])){
 						$mail->msgHTML($body, dirname(__FILE__));
 						#$mail->msgHTML(file_get_contents('contents.html'), __DIR__);*/
 						# Solution 3
-						$mail->Body = '<h2>'.$email['index']['title'].': '.$sites['domain'].'</h2>
+						$mail->Body = '<h2>'.$email['index']['title'].': '.$domainTLD.'</h2>
 							<h4>'.$email['index']['default']['content']['default']['subject'].':</h4> '.$subject_email.'<br /><br />
 							<strong>'.$email['index']['content']['default']['email'].':</strong> '.$email_email.'<br /><br />
 							<strong>'.$email['index']['content']['default']['name'].':</strong> '.$name_email.'<br /><br />
@@ -222,12 +260,12 @@ if(isset($_GET['pages'])){
 							
 							
 						if (!$mail->send()) {
-							header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['error']['url']['default']);
+							header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['error']['url']['default']);
 						} else {
-							header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['success']['url']['default']);
+							header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['success']['url']['default']);
 						}
 					} else {
-						header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['error']['url']['default']);
+						header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['error']['url']['default']);
 					}
 				}
 			} 
@@ -237,9 +275,14 @@ if(isset($_GET['pages'])){
 				date_default_timezone_set($sites['default-timezone']);
 				
 				$mail->setFrom($_POST['email'], $_POST['name']);
-				$mail->addAddress($private['mail']['public'].'@'.$sites['domain'], $sites['domain']);
+				if(!empty($private['mail']['public'])){
+					$mail->addAddress($private['mail']['public'].'@'.$domainTLD, $domainTLD);
+				} else {
+					$mail->addAddress($private['mail']['private'].'@'.$private['mail']['@']['external'], $domainTLD);
+				}
+						
 				if ($mail->addReplyTo($_POST['email'], $_POST['name'])) {
-					$mail->Subject = $email['index']['title'].' - '.$sites['domain'].'.';
+					$mail->Subject = $email['index']['title'].' - '.$domainTLD.'.';
 					$mail->isHTML(true);
 							/*
 							#Solution 1
@@ -267,7 +310,7 @@ if(isset($_GET['pages'])){
 							#$mail->msgHTML(file_get_contents('contents.html'), __DIR__);*/
 							#Solution 3
 							$mail->Body = '
-							<h2>'.$email['index']['title'].': '.$sites['domain'].'</h2>
+							<h2>'.$email['index']['title'].': '.$domainTLD.'</h2>
 							<h4>'.$email['index']['content']['default']['subject'].':</h4> '.$_POST['subject'].'<br /><br />
 							<strong>'.$email['index']['content']['default']['email'].':</strong> '.$_POST['email'].'<br /><br />
 							<strong>'.$email['index']['content']['default']['name'].':</strong> '.$_POST['name'].'<br /><br />
@@ -275,14 +318,14 @@ if(isset($_GET['pages'])){
 							<strong>'.$email['index']['content']['default']['message'].':</strong> '.$_POST['message'];
 					
 					if (!$mail->send()) {
-					   header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['error']['url']['default']);
+					   header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['error']['url']['default']);
 					   exit();
 					} else {
-					   header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['success']['url']['default']);
+					   header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['success']['url']['default']);
 					   exit();
 					}
 				} else {
-					header('Location: '.$protocols.'://'.$sites['domain'].'/'.$block['error']['url']['default']);
+					header('Location: '.$protocols.'://'.$domainTLD.'/'.$block['error']['url']['default']);
 					exit();
 
 				}
@@ -300,6 +343,7 @@ if(isset($_GET['pages'])){
 		$keyword = $sponsor['index']['keyword'];
 		$urls = $sponsor['index']['url']['default'];
 		$imgs = $sponsor['index']['sitemap']['images'];
+		$vdos = $sponsor['index']['sitemap']['video'];
 		define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$sponsor['index']['url']['fr']);
 		define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$sponsor['index']['url']['en']);
 		include('themes/'.$sites['template'].'/header.php');
@@ -314,6 +358,7 @@ if(isset($_GET['pages'])){
 		$keyword = $sitemap['index']['keyword'];
 		$urls = $sitemap['index']['url']['default'];
 		$imgs = $sitemap['index']['sitemap']['images'];
+		$vdos = $sitemap['index']['sitemap']['video'];
 		define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$sitemap['index']['url']['fr']);
 		define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$sitemap['index']['url']['en']);
 		include('themes/'.$sites['template'].'/header.php');
@@ -328,6 +373,7 @@ if(isset($_GET['pages'])){
 		$keyword = $partner['index']['keyword'];
 		$urls = $partner['index']['url']['default'];
 		$imgs = $partner['index']['sitemap']['images'];
+		$vdos = $partner['index']['sitemap']['video'];
 		define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$partner['index']['url']['fr']);
 		define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$partner['index']['url']['en']);
 		include('themes/'.$sites['template'].'/header.php');
@@ -342,6 +388,7 @@ if(isset($_GET['pages'])){
 			$keyword = $block['success']['keyword'];
 			$urls = $block['success']['url']['default'];
 			$imgs = $block['success']['sitemap']['images'];
+			$vdos = $block['success']['sitemap']['video'];
 			define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$block['success']['url']['fr']);
 			define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$block['success']['url']['en']);
 			include('themes/'.$sites['template'].'/header.php');
@@ -354,6 +401,7 @@ if(isset($_GET['pages'])){
 			$keyword = $block['error']['keyword'];
 			$urls = $block['error']['url']['default'];
 			$imgs = $block['error']['sitemap']['images'];
+			$vdos = $block['error']['sitemap']['video'];
 			define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$block['error']['url']['fr']);
 			define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$block['error']['url']['en']);
 			include('themes/'.$sites['template'].'/header.php');
@@ -368,6 +416,7 @@ if(isset($_GET['pages'])){
 				$keyword = $law['cgu']['keyword'];
 				$urls = $law['cgu']['url']['default'];
 				$imgs = $law['cgu']['sitemap']['images'];
+				$vdos = $law['cgu']['sitemap']['video'];
 				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$law['cgu']['url']['fr']);
 				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$law['cgu']['url']['en']);
 				include('themes/'.$sites['template'].'/header.php');
@@ -379,6 +428,7 @@ if(isset($_GET['pages'])){
 				$keyword = $law['cgv']['keyword'];
 				$urls = $law['cgv']['url']['default'];
 				$imgs = $law['cgv']['sitemap']['images'];
+				$vdos = $law['cgv']['sitemap']['video'];
 				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$law['cgv']['url']['fr']);
 				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$law['cgv']['url']['en']);
 				include('themes/'.$sites['template'].'/header.php');
@@ -390,6 +440,7 @@ if(isset($_GET['pages'])){
 				$keyword = $law['dmca']['keyword'];
 				$urls = $law['dmca']['url']['default'];
 				$imgs = $law['dmca']['sitemap']['images'];
+				$vdos = $law['dmca']['sitemap']['video'];
 				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$law['dmca']['url']['fr']);
 				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$law['dmca']['url']['en']);
 				include('themes/'.$sites['template'].'/header.php');
@@ -401,6 +452,7 @@ if(isset($_GET['pages'])){
 				$keyword = $law['legal']['keyword'];
 				$urls = $law['legal']['url']['default'];
 				$imgs = $law['legal']['sitemap']['images'];
+				$vdos = $law['legal']['sitemap']['video'];
 				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$law['legal']['url']['fr']);
 				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$law['legal']['url']['en']);
 				include('themes/'.$sites['template'].'/header.php');
@@ -412,10 +464,23 @@ if(isset($_GET['pages'])){
 				$keyword = $law['policy-privacy']['keyword'];
 				$urls = $law['policy-privacy']['url']['default'];
 				$imgs = $law['policy-privacy']['sitemap']['images'];
+				$vdos = $law['policy-privacy']['sitemap']['video'];
 				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$law['policy-privacy']['url']['fr']);
 				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$law['policy-privacy']['url']['en']);
 				include('themes/'.$sites['template'].'/header.php');
 				include_once('themes/'.$sites['template'].'/law/policy-privacy.php');
+				include('themes/'.$sites['template'].'/footer.php');	
+			} else if($_GET['full'] == 'cookies'){
+				$title = $law['cookies']['title'];
+				$description = $law['cookies']['description'];
+				$keyword = $law['cookies']['keyword'];
+				$urls = $law['cookies']['url']['default'];
+				$imgs = $law['cookies']['sitemap']['images'];
+				$vdos = $law['cookies']['sitemap']['video'];
+				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$law['cookies']['url']['fr']);
+				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$law['cookies']['url']['en']);
+				include('themes/'.$sites['template'].'/header.php');
+				include_once('themes/'.$sites['template'].'/law/cookies.php');
 				include('themes/'.$sites['template'].'/footer.php');	
 			} else if($_GET['full'] == 'rgpd'){
 				$title = $law['rgpd']['title'];
@@ -423,6 +488,7 @@ if(isset($_GET['pages'])){
 				$keyword = $law['rgpd']['keyword'];
 				$urls = $law['rgpd']['url']['default'];
 				$imgs = $law['rgpd']['sitemap']['images'];
+				$vdos = $law['rgpd']['sitemap']['video'];
 				define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$law['rgpd']['url']['fr']);
 				define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$law['rgpd']['url']['en']);
 				include('themes/'.$sites['template'].'/header.php');
@@ -438,6 +504,7 @@ if(isset($_GET['pages'])){
 			$keyword = $law['pages']['keyword'];
 			$urls = $law['pages']['url']['default'];
 			$imgs = $law['pages']['sitemap']['images'];
+			$vdos = $law['pages']['sitemap']['video'];
 			define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$law['pages']['url']['fr']);
 			define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$law['pages']['url']['en']);
 			include('themes/'.$sites['template'].'/header.php');
@@ -454,6 +521,7 @@ if(isset($_GET['pages'])){
 	$keyword = $general['index']['keyword'];
 	$urls = $general['index']['url']['default'];
 	$imgs = $general['index']['sitemap']['images'];
+	$vdos = $general['index']['sitemap']['video'];
 	define('__WP_FR_URL__', $translate['manual']['frontend']['french'].'/'.$general['index']['url']['fr']);
 	define('__WP_EN_URL__', $translate['manual']['frontend']['english'].'/'.$general['index']['url']['en']);
 	include('themes/'.$sites['template'].'/header.php');

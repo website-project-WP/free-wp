@@ -13,16 +13,35 @@ $law = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'rules.html',
-			'fr' => 'règles.html',
-			'en' => 'rules.html'
+			'default' => 'rules',
+			'fr' => 'règles',
+			'en' => 'rules'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'background/law/law.jpg' /*directory images from <exemple.tld>/assets */
+			'images' => 'background/law/law.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA' /*directory images from <exemple.tld>/assets */
+		)
+	),
+	'cookies' => array(
+		'title' => 'Cookie Policy',
+		'description' => '',
+		'keyword' => '',
+		'url' => array(
+			'default' => 'cookies',
+			'fr' => 'cookies',
+			'en' => 'cookies-policy'
+		),
+		'content' => array(
+			'' => ''
+			/*custom your own*/
+		),
+		'sitemap' => array(
+			'images' => 'background/law/cookie.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA' /*directory images from <exemple.tld>/assets */
 		)
 	),
 	'cgu' => array(
@@ -30,16 +49,17 @@ $law = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'cgu.html',
-			'fr' => 'conditions-générales-utilisation.html',
-			'en' => 'terms-and-conditions.html'
+			'default' => 'cgu',
+			'fr' => 'conditions-générales-utilisation',
+			'en' => 'terms-and-conditions'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'background/law/cgu.jpg' /*directory images from <exemple.tld>/assets */
+			'images' => 'background/law/cgu.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA' /*directory images from <exemple.tld>/assets */
 		)
 	),
 	'cgv' => array(
@@ -47,16 +67,17 @@ $law = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'cgv.html',
-			'fr' => 'conditions-générales-de-vente.html',
-			'en' => 'terms-and-conditions-of-sale.html'
+			'default' => 'cgv',
+			'fr' => 'conditions-générales-de-vente',
+			'en' => 'terms-and-conditions-of-sale'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'background/law/cgv.jpg' /*directory images from <exemple.tld>/assets */
+			'images' => 'background/law/cgv.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA' /*directory images from <exemple.tld>/assets */
 		)
 	),
 	'dmca' => array(
@@ -64,16 +85,17 @@ $law = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'dmca.html',
-			'fr' => 'dmca.html',
-			'en' => 'dmca.html'
+			'default' => 'dmca',
+			'fr' => 'dmca',
+			'en' => 'dmca'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'background/law/copyright.jpg' /*directory images from <exemple.tld>/assets */
+			'images' => 'background/law/copyright.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA' /*directory images from <exemple.tld>/assets */
 		)
 	),
 	'legal' => array(
@@ -81,9 +103,9 @@ $law = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'legal.html',
-			'fr' => 'mentions-légales.html',
-			'en' => 'legal.html'
+			'default' => 'legal',
+			'fr' => 'mentions-légales',
+			'en' => 'legal'
 		),
 		'content' => array(
 			'owner' => array(
@@ -133,7 +155,8 @@ $law = array(
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'background/law/copyright.jpg' /*directory images from <exemple.tld>/assets */
+			'images' => 'background/law/copyright.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA' /*directory images from <exemple.tld>/assets */
 		)
 	),
 	'policy-privacy' => array(
@@ -141,16 +164,17 @@ $law = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'privacy-policy.html',
-			'fr' => 'politique-de-confidentialité.html',
-			'en' => 'privacy-policy.html'
+			'default' => 'privacy-policy',
+			'fr' => 'politique-de-confidentialité',
+			'en' => 'privacy-policy'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'background/law/privacy-policy.jpg' /*directory images from <exemple.tld>/assets */
+			'images' => 'background/law/privacy-policy.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA' /*directory images from <exemple.tld>/assets */
 		)
 	),
 	'rgpd' => array(
@@ -158,16 +182,17 @@ $law = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'grpd.html',
-			'fr' => 'rgpd.html',
-			'en' => 'grpd.html'
+			'default' => 'grpd',
+			'fr' => 'rgpd',
+			'en' => 'grpd'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'background/law/rgpd.jpg' /*directory images from <exemple.tld>/assets */
+			'images' => 'background/law/rgpd.jpg',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA' /*directory images from <exemple.tld>/assets */
 		)
 	)
 );

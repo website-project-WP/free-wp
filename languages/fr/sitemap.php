@@ -6,16 +6,17 @@ $sitemap = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'sitemap.html',
-			'fr' => 'plan-du-site.html',
-			'en' => 'sitemap.html'
+			'default' => 'sitemap',
+			'fr' => 'plan-du-site',
+			'en' => 'sitemap'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'themes/bg-alexonbstudio.png'  /*directory images from <exemple.tld>/assets */
+			'images' => 'themes/bg-alexonbstudio.png',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA'  /*directory images from <exemple.tld>/assets */
 		)
 	)
 );

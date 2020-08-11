@@ -6,16 +6,17 @@ $sponsor = array(
 		'description' => '',
 		'keyword' => '',
 		'url' => array(
-			'default' => 'sponsor.html',
-			'fr' => 'sponsorisé.html',
-			'en' => 'sponsor.html'
+			'default' => 'sponsor',
+			'fr' => 'sponsorisé',
+			'en' => 'sponsor'
 		),
 		'content' => array(
 			'' => ''
 			/*custom your own*/
 		),
 		'sitemap' => array(
-			'images' => 'themes/bg-alexonbstudio.png'  /*directory images from <exemple.tld>/assets */
+			'images' => 'themes/bg-alexonbstudio.png',
+			'video' => 'www.youtube.com/watch?v=pzXxTTyxFNA'  /*directory images from <exemple.tld>/assets */
 		)
 	)
 );

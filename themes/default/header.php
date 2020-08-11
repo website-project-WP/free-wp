@@ -254,6 +254,17 @@ if(!empty($seo['google']['analystics'])){
 		</script>';
 }
 
+
+if(!empty($seo['google']['tag-manager'])){
+	echo '<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
+	new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=
+	\'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,\'script\',\'dataLayer\',\''.$seo['google']['tag-manager'].'\');</script>
+	<!-- End Google Tag Manager -->';
+}
+
 if(!empty($seo['yandex']['analystics'])){
 	echo '<!-- Yandex.Metrika counter --> 
 	<script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js", "ym"); ym('.$seo['yandex']['analystics'].', "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/'.$seo['yandex']['analystics'].'" style="position:absolute; left:-9999px;" alt="" /></div></noscript> 
@@ -315,6 +326,173 @@ if(!empty($seo['shareaholic']['key'])){
 
 ';
 }
+
+if(!empty($seo['quantcast']['key'])){
+	echo '<!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement(\'script\');
+  var firstScript = document.getElementsByTagName(\'script\')[0];
+  var milliseconds = new Date().getTime();
+  var url = \'https://quantcast.mgr.consensu.org\'
+    .concat(\'/choice/\', \''.$seo['quantcast']['key'].'\', \'/\', host, \'/choice.js\')
+    .concat(\'?timestamp=\', milliseconds);
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = \'text/javascript\';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = \'__tcfapiLocator\';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement(\'iframe\');
+
+          iframe.style.cssText = \'display:none\';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === \'setGdprApplies\') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === \'boolean\'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === \'function\') {
+            args[2](\'set\', true);
+          }
+        }
+      } else if (args[0] === \'ping\') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: \'stub\'
+        };
+
+        if (typeof args[2] === \'function\') {
+          args[2](retr);
+        }
+      } else {
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === \'string\';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            event.source.postMessage(returnMsg, \'*\');
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener(\'message\', postMessageEventHandler, false);
+    }
+  };
+
+  if (typeof module !== \'undefined\') {
+    module.exports = makeStub;
+  } else {
+    makeStub();
+  }
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== \'undefined\') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn(\'USP is not accessible\');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === \'undefined\') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->';
+}
+
 
 ?>
 <?php if(!empty($seo['hcaptcha']['public-key'])){ ?><script src="https://hcaptcha.com/1/api.js?hl=<?php echo $Languages_translate; ?>" async defer></script><?php } ?>
